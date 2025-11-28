@@ -1,0 +1,67 @@
+body {
+    font-family: Arial;
+    background: #111;
+    color: white;
+    text-align: center;
+    padding-top: 50px;
+}
+
+.container {
+    width: 450px;
+    margin: auto;
+}
+
+input {
+    width: 90%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 10px;
+}
+
+button {
+    width: 95%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background: #ff004f;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #d40043;
+}
+
+.output-img {
+    width: 90%;
+    margin-top: 20px;
+    border-radius: 10px;
+    border: 2px solid #444;
+}
+
+/* LOADING ANIMATION */
+.loading {
+    margin-top: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    margin: auto;
+    border: 5px solid #444;
+    border-top-color: #ff004f;
+    border-radius: 50%;
+    animation: spin 0.9s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+    
