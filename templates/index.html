@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Image Generator</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>AI Image Generator</h1>
+
+    <input id="prompt" placeholder="Enter your prompt...">
+
+    <button onclick="generateImage()">Generate</button>
+
+    <div id="loading" class="loading hidden">
+        <div class="spinner"></div>
+        <p>Generating your image...</p>
+    </div>
+
+    <div id="result"></div>
+
+    <hr>
+
+    <h2>History</h2>
+    <button onclick="loadHistory()">Load History</button>
+    <div id="history"></div>
+</div>
+
+<script>
+function generateImage() {
+    const prompt = document.getElementById("prompt").value;
+    const loading = document.getElementById("loading");
+    const result = document.getElementById("result");
+
+    result.innerHTML = "";
+    loading.classList.remove("hidden");
+
+    fetch("/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ prompt })
+    })
+    .then(res => res.json())
+    .then(data => {
+        loading.classList.add("hidden");
+
+        if (data.success) {
+            const entry = data.entry;
+
+            result.innerHTML = `
+                <h3>Generated Image:</h3>
+                <img src="${entry.image_url}" class="output-img">
+
+                <p><b>Prompt:</b> ${entry.prompt}</p>
+                <p><b>Time:</b> ${entry.created_at}</p>
+            `;
+        } else {
+            result.innerHTML = "<p>Error generating image.</p>";
+        }
+    });
+}
+
+function loadHistory() {
+    fetch("/history")
+    .then(res => res.json())
+    .then(data => {
+        const h = document.getElementById("history");
+        h.innerHTML = "";
+
+        data.forEach(item => {
+            h.innerHTML += `
+                <div class="history-item">
+                    <img src="${item.image_url}" class="history-img">
+                    <p><b>Prompt:</b> ${item.prompt}</p>
+                    <p><b>Generated:</b> ${item.created_at}</p>
+                    <hr>
+                </div>
+            `;
+        });
+    });
+}
+</script>
+
+</body>
+</html>
