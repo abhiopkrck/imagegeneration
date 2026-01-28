@@ -7,7 +7,7 @@ from datetime import datetime
 app = Flask(__name__)
 
 # ==== CONFIG ====
-BYTEZ_API_KEY = "ea0e20284203b535479c427e0d609c77"
+BYTEZ_API_KEY = "your_api_key"
 MODEL_NAME = "google/imagen-4.0-ultra-generate-001"
 
 sdk = Bytez(BYTEZ_API_KEY)
@@ -91,3 +91,4 @@ def history():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
